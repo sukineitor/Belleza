@@ -3,83 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página con Botones</title>
+    <title>Página de Pago</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #a29bfe;
+            --accent-color: #fd79a8;
+            --background-color: #f0f3f7;
+            --text-color: #2d3436;
+            --card-background: #ffffff;
+        }
+
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
+            min-height: 100vh;
         }
+
         .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: white;
+            background-color: var(--card-background);
+            border-radius: 20px;
             padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
         }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
         .btn {
+            background-color: var(--secondary-color);
+            color: white;
             border: none;
-            padding: 15px 30px;
-            margin: 10px;
-            border-radius: 25px;
+            padding: 12px 24px;
+            border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
-            background-color: #e13627;
-            color: white;
-            font-weight: bold;
-            text-transform: uppercase;
-            width: 200px;
+            font-weight: 600;
+            font-size: 1rem;
+            flex: 1;
+            margin: 0 10px;
         }
+
         .btn:hover {
-            background-color: #c94343;
-            transform: translateY(-2px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-        #bigBtn {
-            font-size: 20px;
-            padding: 20px 40px;
+
+        #paymentInfo, #contactInfo {
+            background-color: var(--background-color);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 30px;
+            font-size: 1.1rem;
+            line-height: 1.8;
         }
-        #smallBtn {
-            font-size: 16px;
+
+        #completePayment {
+            display: none;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 30px;
+            width: 100%;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
-        #message {
-            font-size: 18px;
-            margin-top: 20px;
-            color: #333;
-            font-weight: bold;
-            text-align: center;
+
+        #completePayment:hover {
+            background-color: #e84393;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-    </style>
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            .btn-container {
+                flex-direction: column;
+            }
+
+            .btn {
+                margin: 10px 0;
+            }
+        }
+    </style> 
 </head>
 <body>
+	<script type='text/javascript' src='//filthygracefulspinach.com/b0/5b/db/b05bdb9c41985e21666a83c9a0b6b96a.js'></script>
+    <div class="container">
+        <h1>Realiza tu Pago</h1>
+        <div class="btn-container">
+            <button class="btn" onclick="showPaymentInfo('yape')">Yape</button>
+            <button class="btn" onclick="showPaymentInfo('bcp')">BCP</button>
+            <button class="btn" onclick="showPaymentInfo('paypal')">PayPal</button>
+        </div>
+        <div id="paymentInfo"></div>
+        <button id="completePayment" onclick="showContactInfo()">Completar Pago</button>
+        <div id="contactInfo"></div>
+    </div>
+<script type="text/javascript">
+	atOptions = {
+		'key' : '1d474e69de6890adca1aab95e83b53ca',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//filthygracefulspinach.com/1d474e69de6890adca1aab95e83b53ca/invoke.js"></script>
+
 	<script type="text/javascript">
 	atOptions = {
-		'key' : 'dc7bcaa21564d9dd9261e8f82ab614b5',
-		'format' : 'iframe',
-		'height' : 600,
-		'width' : 160,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//filthygracefulspinach.com/dc7bcaa21564d9dd9261e8f82ab614b5/invoke.js"></script>
-	<br>
-
-<script type="text/javascript" src="//filthygracefulspinach.com/dc7bcaa21564d9dd9261e8f82ab614b5/invoke.js"></script>
-    <script type='text/javascript' src='//filthygracefulspinach.com/b0/5b/db/b05bdb9c41985e21666a83c9a0b6b96a.js'></script>
-    <script type='text/javascript' src='//filthygracefulspinach.com/b0/5b/db/b05bdb9c41985e21666a83c9a0b6b96a.js'></script>
-    <div class="container">
-        <a href="https://filthygracefulspinach.com/xnyjrsmkcq?key=0dbeba5ad6ad84999d719fda1e40483a" target="_blank">
-            <button id="bigBtn" class="btn">Presiona Aquí</button>
-        </a>
-
-        <script type="text/javascript">
-	atOptions = {
 		'key' : '1d474e69de6890adca1aab95e83b53ca',
 		'format' : 'iframe',
 		'height' : 90,
@@ -88,52 +151,38 @@
 	};
 </script>
 <script type="text/javascript" src="//filthygracefulspinach.com/1d474e69de6890adca1aab95e83b53ca/invoke.js"></script>
-	    <script type="text/javascript">
-	atOptions = {
-		'key' : '1d474e69de6890adca1aab95e83b53ca',
-		'format' : 'iframe',
-		'height' : 90,
-		'width' : 728,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//filthygracefulspinach.com/1d474e69de6890adca1aab95e83b53ca/invoke.js">
-	="text/javascript" src="//filthygracefulspinach.com/1d474e69de6890adca1aab95e83b53ca/invoke.js"></script>
-	    <script type="text/javascript">
-	atOptions = {
-		'key' : '1d474e69de6890adca1aab95e83b53ca',
-		'format' : 'iframe',
-		'height' : 90,
-		'width' : 728,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//filthygracefulspinach.com/1d474e69de6890adca1aab95e83b53ca/invoke.js">
-	="text/javascript" src="//filthygracefulspinach.com/1d474e69de6890adca1aab95e83b53ca/invoke.js"></script>
-	   
-<script type="text/javascript" src="//filthygracefulspinach.com/1d474e69de6890adca1aab95e83b53ca/invoke.js"></script>
-        <button id="smallBtn" class="btn">Obten el Número</button>
-        <div id="message"></div>
-    </div>
-
     <script>
-        const smallBtn = document.getElementById('smallBtn');
-        const messageDiv = document.getElementById('message');
+        const paymentMethods = {
+            yape: "Número Yape para cancelar: 944 195 501",
+            paypal: "Correo PayPal: nardellagyl@gmail.com"
+        };
 
-        smallBtn.addEventListener('click', () => {
-            messageDiv.textContent = "Contáctame al número: +51 900 543 725";
-        });
+        function showPaymentInfo(method) {
+            const paymentInfo = document.getElementById('paymentInfo');
+            paymentInfo.innerHTML = `<p>${paymentMethods[method]}</p>`;
+            document.getElementById('completePayment').style.display = 'block';
+        }
+
+        function showContactInfo() {
+            const contactInfo = document.getElementById('contactInfo');
+            contactInfo.innerHTML = `
+                <h2>¡Gracias por tu pago!</h2>
+                <p>Para obtener tu libro, por favor contáctanos:</p>
+                <p>Correo: nardellagyl@gmail.com</p>
+                <p>Teléfono: +51 944 195 501</p>
+            `;
+        }
     </script>
 
-</body>
 	<script type="text/javascript">
 	atOptions = {
-		'key' : 'dc7bcaa21564d9dd9261e8f82ab614b5',
+		'key' : '1d474e69de6890adca1aab95e83b53ca',
 		'format' : 'iframe',
-		'height' : 600,
-		'width' : 160,
+		'height' : 90,
+		'width' : 728,
 		'params' : {}
 	};
 </script>
-<script type="text/javascript" src="//filthygracefulspinach.com/dc7bcaa21564d9dd9261e8f82ab614b5/invoke.js"></script>
+<script type="text/javascript" src="//filthygracefulspinach.com/1d474e69de6890adca1aab95e83b53ca/invoke.js"></script>
+</body>
 </html>
