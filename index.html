@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página con Botones</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn {
+            border: none;
+            padding: 15px 30px;
+            margin: 10px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: #e13627;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            width: 200px;
+        }
+        .btn:hover {
+            background-color: #c94343;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        #bigBtn {
+            font-size: 20px;
+            padding: 20px 40px;
+        }
+        #smallBtn {
+            font-size: 16px;
+        }
+        #message {
+            font-size: 18px;
+            margin-top: 20px;
+            color: #333;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="https://filthygracefulspinach.com/xnyjrsmkcq?key=0dbeba5ad6ad84999d719fda1e40483a" target="_blank">
+            <button id="bigBtn" class="btn">Presiona Aquí</button>
+        </a>
+        <button id="smallBtn" class="btn">Obten el Número</button>
+        <div id="message"></div>
+    </div>
+
+    <script>
+        const smallBtn = document.getElementById('smallBtn');
+        const messageDiv = document.getElementById('message');
+
+        smallBtn.addEventListener('click', () => {
+            messageDiv.textContent = "Contáctame al número: +51 900 543 725";
+        });
+    </script>
+</body>
+</html>
