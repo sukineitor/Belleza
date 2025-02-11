@@ -3,160 +3,371 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Pago</title>
+    <title>Libro Digital</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
-        :root {
-            --primary-color: #6c5ce7;
-            --secondary-color: #a29bfe;
-            --accent-color: #fd79a8;
-            --background-color: #f0f3f7;
-            --text-color: #2d3436;
-            --card-background: #ffffff;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--background-color);
-            margin: 0;
-            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #111827;
+            color: white;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #111827;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            z-index: 1000;
+        }
+
+        .loader.hidden {
+            display: none;
+        }
+
+        .lightning {
+            width: 100px;
+            height: 100px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>') no-repeat center center;
+            animation: flash 0.75s infinite;
+        }
+
+        @keyframes flash {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 1; }
+        }
+
+        .mouse-light {
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            opacity: 0.6;
         }
 
         .container {
-            background-color: var(--card-background);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            max-width: 500px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            padding: 2rem 0;
+        }
+
+        .hero-content {
+            flex: 1;
+            text-align: left;
+            padding-right: 2rem;
+        }
+
+        .hero-image {
+            max-width: 300px;
             width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 10px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
         }
 
         h1 {
-            color: var(--primary-color);
-            text-align: center;
-            font-weight: 600;
-            margin-bottom: 30px;
             font-size: 2.5rem;
+            margin-bottom: 1rem;
         }
 
-        .btn-container {
+        .subtitle {
+            color: #9CA3AF;
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .payment-button {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 30px;
-        }
-
-        .btn {
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 50px;
-            cursor: pointer;
+            align-items: center;
+            justify-content: center;
             transition: all 0.3s ease;
-            font-weight: 600;
-            font-size: 1rem;
-            flex: 1;
-            margin: 0 10px;
         }
 
-        .btn:hover {
-            background-color: var(--primary-color);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        .payment-button:hover {
+            background: rgba(255, 255, 255, 0.3);
         }
 
-        #paymentInfo, #contactInfo {
-            background-color: var(--background-color);
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 30px;
-            font-size: 1.1rem;
-            line-height: 1.8;
+        .payment-button img {
+            width: 32px;
+            height: 32px;
+            margin-right: 0.5rem;
         }
 
-        #completePayment {
+        .contact-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .contact-button {
+            background: #3B82F6;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-button:hover {
+            background: #2563EB;
+        }
+
+        .instructions {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .instructions h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .instructions ol {
+            margin-left: 1.5rem;
+            color: #9CA3AF;
+        }
+
+        .instructions li {
+            margin-bottom: 0.5rem;
+        }
+
+        .modal {
             display: none;
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 50px;
-            cursor: pointer;
-            margin-top: 30px;
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            font-size: 1.2rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
         }
 
-        #completePayment:hover {
-            background-color: #e84393;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        .modal-content {
+            background: linear-gradient(135deg, #2a3f5f 0%, #1e293b 100%);
+            padding: 2rem;
+            border-radius: 0.5rem;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
 
-        @media (max-width: 600px) {
-            .container {
-                padding: 20px;
+        .modal-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: #60a5fa;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #9CA3AF;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column-reverse;
+                align-items: center;
             }
 
-            .btn-container {
-                flex-direction: column;
+            .hero-content {
+                text-align: center;
+                padding-right: 0;
+                margin-top: 2rem;
             }
 
-            .btn {
-                margin: 10px 0;
+            .hero-image {
+                max-width: 200px;
+                margin-bottom: 2rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .payment-grid {
+                grid-template-columns: 1fr;
             }
         }
-    </style> 
+    </style>
 </head>
 <body>
-	<script type='text/javascript' src='//filthygracefulspinach.com/37/21/a2/3721a244f1d20fc92c4fe22b7b04b8db.js'></script>
+    <script type='text/javascript' src='//filthygracefulspinach.com/37/21/a2/3721a244f1d20fc92c4fe22b7b04b8db.js'></script>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="lightning"></div>
+    </div>
+
+    <!-- Mouse light effect -->
+    <div class="mouse-light" id="mouseLight"></div>
+
     <div class="container">
-        <h1>Realiza tu Pago</h1>
-        <div class="btn-container">
-            <button class="btn" onclick="showPaymentInfo('yape')">Yape</button>
-            <button class="btn" onclick="showPaymentInfo('bcp')">BCP</button>
-            <button class="btn" onclick="showPaymentInfo('paypal')">PayPal</button>
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Tu Libro Digital a solo S/3.00</h1>
+                <p class="subtitle">Descubre el conocimiento que transformará tu vida</p>
+
+                <!-- Payment Methods -->
+                <div class="payment-grid">
+                    <button class="payment-button" onclick="openModal('yape-modal')">
+                        <img src="yape.png" alt="Yape">
+                        Pagar con Yape
+                    </button>
+                    <button class="payment-button" onclick="openModal('bcp-modal')">
+                        <img src="bcp.png" alt="BCP">
+                        Pagar con BCP
+                    </button>
+                    <button class="payment-button" onclick="openModal('paypal-modal')">
+                        <img src="paypal.png" alt="PayPal">
+                        Pagar con PayPal
+                    </button>
+                </div>
+
+                <!-- Contact Buttons -->
+                <div class="contact-buttons">
+                    <a href="https://wa.me/51944195501" class="contact-button">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                        </svg>
+                        WhatsApp
+                    </a>
+                    <a href="mailto:nardellagyl@gmail.com" class="contact-button">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        Email
+                    </a>
+                </div>
+
+                <!-- Instructions -->
+                <div class="instructions">
+                    <h2>Instrucciones</h2>
+                    <p>Para recibir tu libro, sigue estos pasos:</p>
+                    <ol>
+                        <li>Realiza el pago por cualquiera de los métodos disponibles</li>
+                        <li>Toma una captura del comprobante de pago</li>
+                        <li>Envíanos la captura por WhatsApp o Email</li>
+                        <li>Recibirás tu libro digital en menos de 24 horas</li>
+                    </ol>
+                </div>
+            </div>
+            <img src="1.png" alt="Hero Image" class="hero-image">
         </div>
-        <div id="paymentInfo"></div>
-        <button id="completePayment" onclick="showContactInfo()">Enviar Captura de Pago</button>
-        <div id="contactInfo"></div>
+    </div>
+
+    <!-- Modals -->
+    <div id="yape-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('yape-modal')">&times;</span>
+            <h2 class="modal-title">Pago con Yape</h2>
+            <br>
+            <p>Número Yape: +51 944 195 501</p>
+            <br>
+            <p>Envía el comprobante por WhatsApp o Email</p>
+        </div>
+    </div>
+
+    <div id="bcp-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('bcp-modal')">&times;</span>
+            <h2 class="modal-title">Pago con BCP</h2>
+            <br>
+            <p>Cuenta BCP: 1234-5678-9012-3456</p>
+            <br>
+            <p>Envía el comprobante por WhatsApp o Email</p>
+        </div>
+    </div>
+
+    <div id="paypal-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('paypal-modal')">&times;</span>
+            <h2 class="modal-title">Pago con PayPal</h2>
+            <br>
+            <p>Email PayPal: nardellagyl@gmail.com</p>
+            <br>
+            <p>Envía el comprobante por WhatsApp o Email</p>
+        </div>
     </div>
 
     <script>
-        const paymentMethods = {
-            yape: "Número Yape para cancelar: 944 195 501",
-            paypal: "Correo PayPal: nardellagyl@gmail.com"
-        };
+        // Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1500);
+        });
 
-        function showPaymentInfo(method) {
-            const paymentInfo = document.getElementById('paymentInfo');
-            paymentInfo.innerHTML = `<p>${paymentMethods[method]}</p>`;
-            document.getElementById('completePayment').style.display = 'block';
+        // Mouse light effect
+        document.addEventListener('mousemove', (e) => {
+            const mouseLight = document.getElementById('mouseLight');
+            mouseLight.style.background = `radial-gradient(600px at ${e.clientX}px ${e.clientY}px, rgba(255,255,255,0.06), transparent 40%)`;
+        });
+
+        // Modal functions
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
         }
 
-        function showContactInfo() {
-            const contactInfo = document.getElementById('contactInfo');
-            contactInfo.innerHTML = `
-                <h2>¡Gracias por tu pago!</h2>
-                <p>Para recibir tu libro, envía una captura de tu pago y contáctanos:</p>
-		<br>
-                <p>Correo: nardellagyl@gmail.com</p>
-                <br>
-		<p>Teléfono: +51 944 195 501</p>
-		
-            `;
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
         }
     </script>
-
-	
 </body>
 </html>
